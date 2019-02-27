@@ -42,23 +42,23 @@ class App extends Component {
     this.setState({
       addFriend: {
         ...this.state.addFriend,
-        [event.target.name]: event.target.value,
+        [event.target.name]: event.target.value
       }
-    })
-  }
+    });
+  };
   postFriend = () => {
     axios
       .post('http://localhost:5000/friends', this.state.addFriend)
       .then(resp => console.log(resp))
       .catch(error => this.setError(error.message));
-  }
+  };
 
   deleteFriend = event => {
     axios
       .delete(`http://localhost:5000/friends/${event.target.name}`)
       .then(friends => this.setFriendsList(friends.data))
       .catch(error => this.setError(error.message));
-  }
+  };
 
   render() {
     if (this.state.error) {
@@ -67,8 +67,15 @@ class App extends Component {
     return (
       <div className="App">
         <FriendHeader>Friends</FriendHeader>
-        <Friends friends={this.state.friends} deleteFriend={this.deleteFriend} />
-        <AddFriend addFriend={this.state.addFriend} addFriendHandler={this.addFriendHandler} postFriend={this.postFriend} />
+        <Friends
+          friends={this.state.friends}
+          deleteFriend={this.deleteFriend}
+        />
+        <AddFriend
+          addFriend={this.state.addFriend}
+          addFriendHandler={this.addFriendHandler}
+          postFriend={this.postFriend}
+        />
       </div>
     );
   }

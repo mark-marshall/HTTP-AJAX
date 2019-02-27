@@ -1,59 +1,59 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const AddFriendForm = styled.form` 
-    justify-content: center;
-    padding-bottom: 8%;
+const AddFriendForm = styled.form`
+  justify-content: center;
+  padding-bottom: 8%;
 
-    input {
-        height: 30px;
-        padding: 0.2%;
-        margin: 0.2%;
-        width: 210px;
+  input {
+    height: 30px;
+    padding: 0.2%;
+    margin: 0.2%;
+    width: 210px;
+  }
+
+  button {
+    height: 39px;
+    margin: 0.2%;
+    padding: 0 2%;
+    border: none;
+    background-color: #ed8733;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+
+    &:hover {
+      background-color: #3d075e;
     }
-
-    button {
-        height: 39px;
-        margin: 0.2%;
-        padding: 0 2%;
-        border: none;
-        background-color: #ED8733;
-        color: white;
-        font-size: 14px;
-        cursor: pointer;
-        text-transform: uppercase;
-
-        &:hover {
-            background-color: #3D075E;
-        }
-    }
+  }
 `;
 
 export default function AddFriend({ postFriend, addFriend, addFriendHandler }) {
   return (
-      <AddFriendForm onSubmit={postFriend}>
-        <input 
-        placeholder="Name" 
+    <AddFriendForm onSubmit={postFriend}>
+      <input
+        placeholder="Name"
         name="name"
-        type="text" 
+        type="text"
         onChange={event => addFriendHandler(event)}
         value={addFriend.name}
-        />
-        <input 
-        placeholder="Age" 
+      />
+      <input
+        placeholder="Age"
         name="age"
-        type="number" 
+        type="number"
         onChange={event => addFriendHandler(event)}
         value={addFriend.age}
-        />
-        <input 
-        placeholder="Email" 
+      />
+      <input
+        placeholder="Email"
         name="email"
-        type="text" 
+        type="text"
         onChange={event => addFriendHandler(event)}
         value={addFriend.email}
-        />
-        <button type="submit">Add friend</button>
-      </AddFriendForm>
+      />
+      <button type="submit">Add friend</button>
+    </AddFriendForm>
   );
 }

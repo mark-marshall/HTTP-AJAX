@@ -7,7 +7,7 @@ const FriendsWrapper = styled.div`
   margin: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
 `;
 
 const FriendCard = styled.div`
@@ -24,11 +24,11 @@ const FriendCard = styled.div`
   }
 
   button {
-      background-color: white;
-      width: 60%;
-      height: 12%;
-      border: none;
-      cursor: pointer;
+    background-color: white;
+    width: 60%;
+    height: 12%;
+    border: none;
+    cursor: pointer;
   }
 `;
 
@@ -38,9 +38,16 @@ export default function Friends({ friends, deleteFriend }) {
       {friends.map(friend => (
         <FriendCard key={friend.id}>
           <h1>{friend.name}</h1>
-          <p>Age: {friend.age}</p>
+          <p>
+            Age:
+            {friend.age}
+          </p>
           <p>{friend.email}</p>
-          <button onClick={event => deleteFriend(event)} name={friend.id}>Delete {friend.name} 😢</button>
+          <button onClick={event => deleteFriend(event)} name={friend.id} type="submit">
+            Delete
+            {friend.name}
+            😢
+          </button>
         </FriendCard>
       ))}
     </FriendsWrapper>
