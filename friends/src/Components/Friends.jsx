@@ -17,6 +17,11 @@ const FriendCard = styled.div`
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
   margin: 10px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #3d075e;
+    color: white;
+  }
 `;
 
 export default function Friends({ friends }) {
