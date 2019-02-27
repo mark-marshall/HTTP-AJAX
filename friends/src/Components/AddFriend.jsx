@@ -28,12 +28,30 @@ const AddFriendForm = styled.form`
     }
 `;
 
-export default function AddFriend() {
+export default function AddFriend({ addFriend, addFriendHandler }) {
   return (
       <AddFriendForm>
-        <input placeholder="Name" type="text" />
-        <input placeholder="Age" type="text" />
-        <input placeholder="Email" type="text" />
+        <input 
+        placeholder="Name" 
+        name="name"
+        type="text" 
+        onChange={event => addFriendHandler(event)}
+        value={addFriend.name}
+        />
+        <input 
+        placeholder="Age" 
+        name="age"
+        type="text" 
+        onChange={event => addFriendHandler(event)}
+        value={addFriend.age}
+        />
+        <input 
+        placeholder="Email" 
+        name="email"
+        type="text" 
+        onChange={event => addFriendHandler(event)}
+        value={addFriend.email}
+        />
         <button type="submit">Add friend</button>
       </AddFriendForm>
   );
