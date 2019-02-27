@@ -12,7 +12,7 @@ const FriendsWrapper = styled.div`
 `;
 
 const FriendCard = styled.div`
-  height: 200px;
+  height: 210px;
   width: 250px;
   border-radius: 4px;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
@@ -26,14 +26,30 @@ const FriendCard = styled.div`
 
   button {
     background-color: white;
-    width: 60%;
-    height: 12%;
+    width: 40%;
+    height: 15%;
     border: none;
     cursor: pointer;
+
+    &: hover {
+      color: white;
+    }
+  }
+
+  .editButton {
+    &:hover {
+      background-color: #2F6C67;
+    }
+  }
+
+  .deleteButton {
+    &:hover {
+      background-color: #EB4E47;
+    }
   }
 `;
 
-export default function Friends({ friends, deleteFriend }) {
+export default function Friends({ friends, deleteFriend, setCurrentFriend }) {
   return (
     <FriendsWrapper>
       {friends.map(friend => (
@@ -45,13 +61,20 @@ export default function Friends({ friends, deleteFriend }) {
           </p>
           <p>{friend.email}</p>
           <button
-            onClick={event => deleteFriend(event)}
-            name={friend.id}
+            className="editButton"
+            onClick={event => setCurrentFriend(event)}
             type="submit"
           >
-            Delete
+            Edit
+          </button>
+          <button
+            className="deleteButton"
+            onClick={event => deleteFriend(event)}
+            value={friend.id}
+            type="submit"
+          >
+            Delete&nbsp;
             {friend.name}
-            😢
           </button>
         </FriendCard>
       ))}
@@ -62,11 +85,11 @@ export default function Friends({ friends, deleteFriend }) {
 Friends.propTypes = {
   friends: PT.arrayOf(
     PT.shape({
-      age: PT.number.isRequired,
+      age: PT.isRequired,
       email: PT.string.isRequired,
       id: PT.number.isRequired,
-      name: PT.string.isRequired,
-    }),
+      name: PT.string.isRequired
+    })
   ).isRequired,
-  deleteFriend: PT.func.isRequired,
+  deleteFriend: PT.func.isRequired
 };

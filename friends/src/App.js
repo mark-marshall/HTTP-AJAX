@@ -20,7 +20,8 @@ class App extends Component {
       name: '',
       age: '',
       email: '',
-    }
+    },
+    currentFriend: {},
   };
 
   componentDidMount() {
@@ -55,10 +56,16 @@ class App extends Component {
 
   deleteFriend = event => {
     axios
-      .delete(`http://localhost:5000/friends/${event.target.name}`)
+      .delete(`http://localhost:5000/friends/${event.target.value}`)
       .then(friends => this.setFriendsList(friends.data))
       .catch(error => this.setError(error.message));
   };
+
+  setCurrentFriend = friend => {
+    this.setState({
+      currentFriend: friend, 
+   })
+  }
 
   render() {
     if (this.state.error) {
@@ -70,6 +77,7 @@ class App extends Component {
         <Friends
           friends={this.state.friends}
           deleteFriend={this.deleteFriend}
+          setCurrentFriend={this.setCurrentFriend}
         />
         <AddFriend
           addFriend={this.state.addFriend}
