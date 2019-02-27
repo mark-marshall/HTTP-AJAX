@@ -30,7 +30,7 @@ export default function Friends({ friends }) {
       {friends.map(friend => (
         <FriendCard key={friend.id}>
           <h1>{friend.name}</h1>
-          <p>{friend.age}</p>
+          <p>Age: {friend.age}</p>
           <p>{friend.email}</p>
         </FriendCard>
       ))}
