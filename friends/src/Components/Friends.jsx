@@ -24,7 +24,11 @@ const FriendCard = styled.div`
   }
 
   button {
-      padding: 0 5%;
+      background-color: white;
+      width: 60%;
+      height: 12%;
+      border: none;
+      cursor: pointer;
   }
 `;
 
@@ -36,7 +40,7 @@ export default function Friends({ friends, deleteFriend }) {
           <h1>{friend.name}</h1>
           <p>Age: {friend.age}</p>
           <p>{friend.email}</p>
-          <button onClick={event => deleteFriend(event)} name={friend.id}>Delete</button>
+          <button onClick={event => deleteFriend(event)} name={friend.id}>Delete {friend.name} 😢</button>
         </FriendCard>
       ))}
     </FriendsWrapper>
