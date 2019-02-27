@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PT from 'prop-types';
 
 const AddFriendForm = styled.form`
   justify-content: center;
@@ -57,3 +58,13 @@ export default function AddFriend({ postFriend, addFriend, addFriendHandler }) {
     </AddFriendForm>
   );
 }
+
+AddFriend.propTypes = {
+  postFriend: PT.func.isRequired,
+  addFriend: PT.shape({
+    name: PT.string.isRequired,
+    age: PT.isRequired,
+    email: PT.string.isRequired,
+  }).isRequired,
+  addFriendHandler: PT.func.isRequired,
+};

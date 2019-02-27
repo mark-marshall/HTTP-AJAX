@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PT from 'prop-types';
 
 const FriendsWrapper = styled.div`
   padding: 2%;
@@ -43,7 +44,11 @@ export default function Friends({ friends, deleteFriend }) {
             {friend.age}
           </p>
           <p>{friend.email}</p>
-          <button onClick={event => deleteFriend(event)} name={friend.id} type="submit">
+          <button
+            onClick={event => deleteFriend(event)}
+            name={friend.id}
+            type="submit"
+          >
             Delete
             {friend.name}
             😢
@@ -53,3 +58,15 @@ export default function Friends({ friends, deleteFriend }) {
     </FriendsWrapper>
   );
 }
+
+Friends.propTypes = {
+  friends: PT.arrayOf(
+    PT.shape({
+      age: PT.number.isRequired,
+      email: PT.string.isRequired,
+      id: PT.number.isRequired,
+      name: PT.string.isRequired,
+    }),
+  ).isRequired,
+  deleteFriend: PT.func.isRequired,
+};
