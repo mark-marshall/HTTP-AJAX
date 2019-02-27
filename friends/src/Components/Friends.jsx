@@ -11,7 +11,7 @@ const FriendsWrapper = styled.div`
 `;
 
 const FriendCard = styled.div`
-  height: 175px;
+  height: 200px;
   width: 250px;
   border-radius: 4px;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
@@ -22,9 +22,13 @@ const FriendCard = styled.div`
     background-color: #3d075e;
     color: white;
   }
+
+  button {
+      padding: 0 5%;
+  }
 `;
 
-export default function Friends({ friends }) {
+export default function Friends({ friends, deleteFriend }) {
   return (
     <FriendsWrapper>
       {friends.map(friend => (
@@ -32,6 +36,7 @@ export default function Friends({ friends }) {
           <h1>{friend.name}</h1>
           <p>Age: {friend.age}</p>
           <p>{friend.email}</p>
+          <button onClick={event => deleteFriend(event)} name={friend.id}>Delete</button>
         </FriendCard>
       ))}
     </FriendsWrapper>
