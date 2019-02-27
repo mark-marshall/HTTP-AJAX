@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const AddFriendForm = styled.form` 
     justify-content: center;
+    padding-bottom: 8%;
 
     input {
         height: 30px;
@@ -28,9 +29,9 @@ const AddFriendForm = styled.form`
     }
 `;
 
-export default function AddFriend({ addFriend, addFriendHandler }) {
+export default function AddFriend({ postFriend, addFriend, addFriendHandler }) {
   return (
-      <AddFriendForm>
+      <AddFriendForm onSubmit={postFriend}>
         <input 
         placeholder="Name" 
         name="name"
@@ -41,7 +42,7 @@ export default function AddFriend({ addFriend, addFriendHandler }) {
         <input 
         placeholder="Age" 
         name="age"
-        type="text" 
+        type="number" 
         onChange={event => addFriendHandler(event)}
         value={addFriend.age}
         />

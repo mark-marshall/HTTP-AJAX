@@ -47,6 +47,13 @@ class App extends Component {
     })
   }
 
+  postFriend = () => {
+    axios
+      .post('http://localhost:5000/friends', this.state.addFriend)
+      .then(resp => console.log(resp))
+      .catch(error => this.setError(error.message));
+  }
+
   render() {
     if (this.state.error) {
       return <h1>Well, that didn't work, here's why: {this.state.error}</h1>;
@@ -55,7 +62,7 @@ class App extends Component {
       <div className="App">
         <FriendHeader>Friends</FriendHeader>
         <Friends friends={this.state.friends} />
-        <AddFriend addFriend={this.state.addFriend} addFriendHandler={this.addFriendHandler}/>
+        <AddFriend addFriend={this.state.addFriend} addFriendHandler={this.addFriendHandler} postFriend={this.postFriend} />
       </div>
     );
   }
