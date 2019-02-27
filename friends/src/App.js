@@ -21,7 +21,8 @@ class App extends Component {
       age: '',
       email: '',
     },
-    currentFriend: {},
+    currentFriendID: '',
+    editMode: false,
   };
 
   componentDidMount() {
@@ -61,10 +62,19 @@ class App extends Component {
       .catch(error => this.setError(error.message));
   };
 
-  setCurrentFriend = friend => {
+  
+  updateFriend = () => {
+    axios
+      .put(`http://localhost:5000/friends/${this.state.currentFriendID}`, this.state.addFriend)
+      .then(resp => console.log(resp))
+      .catch(error => this.setError(error.message));
+  }
+
+  setEditMode = event => {
     this.setState({
-      currentFriend: friend, 
-   })
+      editMode: !this.state.editMode,
+      currentFriendID: event.target.value,
+    })
   }
 
   render() {
@@ -77,12 +87,17 @@ class App extends Component {
         <Friends
           friends={this.state.friends}
           deleteFriend={this.deleteFriend}
-          setCurrentFriend={this.setCurrentFriend}
+          setEditMode={this.setEditMode}
+          setCurrentFriendID={this.setCurrentFriendID}
         />
         <AddFriend
           addFriend={this.state.addFriend}
           addFriendHandler={this.addFriendHandler}
           postFriend={this.postFriend}
+          editMode={this.state.editMode}
+          currentFriendID={this.state.currentFriendID}
+          friends={this.state.friends}
+          updateFriend={this.updateFriend}
         />
       </div>
     );

@@ -49,7 +49,7 @@ const FriendCard = styled.div`
   }
 `;
 
-export default function Friends({ friends, deleteFriend, setCurrentFriend }) {
+export default function Friends({ friends, deleteFriend, setEditMode }) {
   return (
     <FriendsWrapper>
       {friends.map(friend => (
@@ -62,8 +62,9 @@ export default function Friends({ friends, deleteFriend, setCurrentFriend }) {
           <p>{friend.email}</p>
           <button
             className="editButton"
-            onClick={event => setCurrentFriend(event)}
+            onClick={event => setEditMode(event)}
             type="submit"
+            value={friend.id}
           >
             Edit
           </button>

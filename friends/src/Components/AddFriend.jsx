@@ -28,33 +28,73 @@ const AddFriendForm = styled.form`
       background-color: #3d075e;
     }
   }
+
+  .addButton {
+      background-color: green;
+  }
 `;
 
-export default function AddFriend({ postFriend, addFriend, addFriendHandler }) {
+export default function AddFriend({
+  postFriend,
+  addFriend,
+  addFriendHandler,
+  editMode,
+  currentFriendID,
+  friends,
+  updateFriend,
+}) {
+  if (!editMode) {
+    return (
+      <AddFriendForm onSubmit={postFriend}>
+        <input
+          placeholder="Name"
+          name="name"
+          type="text"
+          onChange={event => addFriendHandler(event)}
+          value={addFriend.name}
+        />
+        <input
+          placeholder="Age"
+          name="age"
+          type="number"
+          onChange={event => addFriendHandler(event)}
+          value={addFriend.age}
+        />
+        <input
+          placeholder="Email"
+          name="email"
+          type="text"
+          onChange={event => addFriendHandler(event)}
+          value={addFriend.email}
+        />
+        <button type="submit" className="addButton">Add Friend</button>
+      </AddFriendForm>
+    );
+  }
   return (
-    <AddFriendForm onSubmit={postFriend}>
+    <AddFriendForm onSubmit={updateFriend}>
       <input
-        placeholder="Name"
+        placeholder={friends[currentFriendID-1].name}
         name="name"
         type="text"
         onChange={event => addFriendHandler(event)}
         value={addFriend.name}
       />
       <input
-        placeholder="Age"
+        placeholder={friends[currentFriendID-1].age}
         name="age"
         type="number"
         onChange={event => addFriendHandler(event)}
         value={addFriend.age}
       />
       <input
-        placeholder="Email"
+        placeholder={friends[currentFriendID-1].email}
         name="email"
         type="text"
         onChange={event => addFriendHandler(event)}
         value={addFriend.email}
       />
-      <button type="submit">Add friend</button>
+      <button type="submit">Edit Friend</button>
     </AddFriendForm>
   );
 }
@@ -64,7 +104,7 @@ AddFriend.propTypes = {
   addFriend: PT.shape({
     name: PT.string.isRequired,
     age: PT.isRequired,
-    email: PT.string.isRequired,
+    email: PT.string.isRequired
   }).isRequired,
-  addFriendHandler: PT.func.isRequired,
+  addFriendHandler: PT.func.isRequired
 };
