@@ -68,11 +68,12 @@ class App extends Component {
       .put(`http://localhost:5000/friends/${this.state.currentFriendID}`, this.state.addFriend)
       .then(resp => console.log(resp))
       .catch(error => this.setError(error.message));
+      this.setState({ editMode: false });
   }
 
   setEditMode = event => {
     this.setState({
-      editMode: !this.state.editMode,
+      editMode: true,
       currentFriendID: event.target.value,
     })
   }
@@ -95,8 +96,6 @@ class App extends Component {
           addFriendHandler={this.addFriendHandler}
           postFriend={this.postFriend}
           editMode={this.state.editMode}
-          currentFriendID={this.state.currentFriendID}
-          friends={this.state.friends}
           updateFriend={this.updateFriend}
         />
       </div>

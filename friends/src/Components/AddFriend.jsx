@@ -24,6 +24,10 @@ const AddFriendForm = styled.form`
     cursor: pointer;
     text-transform: uppercase;
 
+    &:active {
+      background-color: orange;
+    }
+
     &:hover {
       background-color: #3d075e;
     }
@@ -39,8 +43,6 @@ export default function AddFriend({
   addFriend,
   addFriendHandler,
   editMode,
-  currentFriendID,
-  friends,
   updateFriend,
 }) {
   if (!editMode) {
@@ -74,21 +76,21 @@ export default function AddFriend({
   return (
     <AddFriendForm onSubmit={updateFriend}>
       <input
-        placeholder={friends[currentFriendID-1].name}
+        placeholder="Name"
         name="name"
         type="text"
         onChange={event => addFriendHandler(event)}
         value={addFriend.name}
       />
       <input
-        placeholder={friends[currentFriendID-1].age}
+        placeholder="Age"
         name="age"
         type="number"
         onChange={event => addFriendHandler(event)}
         value={addFriend.age}
       />
       <input
-        placeholder={friends[currentFriendID-1].email}
+        placeholder="Email"
         name="email"
         type="text"
         onChange={event => addFriendHandler(event)}
