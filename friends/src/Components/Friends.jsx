@@ -26,6 +26,7 @@ const FriendCard = styled.div`
   }
 
   button {
+    margin-top: 10px;
     background-color: white;
     width: 40%;
     height: 15%;
@@ -57,7 +58,6 @@ export default function Friends({ friends, deleteFriend, setEditMode }) {
         <FriendCard key={friend.id}>
           <h1>{friend.name}</h1>
           <p>
-            Age:
             {friend.age}
           </p>
           <p>{friend.email}</p>
