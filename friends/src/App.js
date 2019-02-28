@@ -73,8 +73,9 @@ class App extends Component {
   postFriend = () => {
     axios
       .post(friendsURL, this.state.addFriend)
-      .then(resp => console.log(resp))
-      .catch(error => this.setError(error.message));
+      .then(resp => this.setFriendsList(resp.data))
+      .catch(error => this.setError(error.message))
+      .finally(this.addFriendReset);
   };
 
   deleteFriend = event => {
@@ -87,8 +88,9 @@ class App extends Component {
   updateFriend = () => {
     axios
       .put(`${friendsURL}/${this.state.currentFriendID}`, this.state.addFriend)
-      .then(resp => console.log(resp))
-      .catch(error => this.setError(error.message));
+      .then(resp => this.setFriendsList(resp.data))
+      .catch(error => this.setError(error.message))
+      .finally(this.addFriendReset);
     this.setState({ editMode: false });
   };
 

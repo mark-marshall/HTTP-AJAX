@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { lighten } from 'polished';
 import PT from 'prop-types';
 
-const AddFriendForm = styled.form`
+const ChangedFriendsWrapper = styled.div`
   justify-content: center;
   padding: 2% 0 8% 0;
 
@@ -13,7 +13,7 @@ const AddFriendForm = styled.form`
     margin: 0.2%;
     width: 170px;
     border-radius: 2px;
-    border: 1px solid #F5F5F5;
+    border: 1px solid #f5f5f5;
   }
 
   button {
@@ -38,7 +38,7 @@ const AddFriendForm = styled.form`
   }
 
   .cancelButton {
-    background-color: #EB4E47;
+    background-color: #eb4e47;
     padding: 0 1.5%;
 
     &:hover {
@@ -53,11 +53,11 @@ export default function AddFriend({
   addFriendHandler,
   editMode,
   updateFriend,
-  cancelEdit,
+  cancelEdit
 }) {
   if (!editMode) {
     return (
-      <AddFriendForm onSubmit={postFriend}>
+      <ChangedFriendsWrapper>
         <input
           placeholder="Name"
           name="name"
@@ -79,14 +79,14 @@ export default function AddFriend({
           onChange={event => addFriendHandler(event)}
           value={addFriend.email}
         />
-        <button type="submit" className="addButton">
+        <button className="addButton" onClick={postFriend}>
           Add Friend
         </button>
-      </AddFriendForm>
+      </ChangedFriendsWrapper>
     );
   }
   return (
-    <AddFriendForm onSubmit={updateFriend}>
+    <ChangedFriendsWrapper>
       <input
         placeholder="Name"
         name="name"
@@ -108,9 +108,11 @@ export default function AddFriend({
         onChange={event => addFriendHandler(event)}
         value={addFriend.email}
       />
-      <button type="submit">Edit Friend</button>
-      <button type="submit" onClick={cancelEdit} className="cancelButton">X</button>
-    </AddFriendForm>
+      <button onClick={updateFriend}>Edit Friend</button>
+      <button type="submit" onClick={cancelEdit} className="cancelButton">
+        X
+      </button>
+    </ChangedFriendsWrapper>
   );
 }
 
@@ -122,7 +124,7 @@ AddFriend.propTypes = {
     email: PT.string.isRequired,
   }).isRequired,
   addFriendHandler: PT.func.isRequired,
-  editMode: PT.func.isRequired,
+  editMode: PT.bool.isRequired,
   updateFriend: PT.func.isRequired,
   cancelEdit: PT.func.isRequired,
 };
