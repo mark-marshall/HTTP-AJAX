@@ -114,7 +114,10 @@ AddFriend.propTypes = {
   addFriend: PT.shape({
     name: PT.string.isRequired,
     age: PT.isRequired,
-    email: PT.string.isRequired
+    email: PT.string.isRequired,
   }).isRequired,
-  addFriendHandler: PT.func.isRequired
+  addFriendHandler: PT.func.isRequired,
+  editMode: PT.func.isRequired,
+  updateFriend: PT.func.isRequired,
+  cancelEdit: PT.func.isRequired,
 };

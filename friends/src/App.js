@@ -49,6 +49,16 @@ class App extends Component {
     this.setState({ error });
   };
 
+  addFriendReset = () => {
+    this.setState({
+      addFriend: {
+        name: '',
+        age: '',
+        email: '',
+      }
+    })
+  }
+
   addFriendHandler = event => {
     this.setState({
       addFriend: {
@@ -108,6 +118,7 @@ class App extends Component {
     this.setState({
       editMode: false,
     })
+    this.addFriendReset();
   }
 
   render() {
