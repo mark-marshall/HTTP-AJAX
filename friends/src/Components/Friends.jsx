@@ -4,6 +4,7 @@ import PT from 'prop-types';
 
 const FriendsWrapper = styled.div`
   padding: 2%;
+  padding-top: 7%;
   width: 850px;
   margin: auto;
   display: flex;
@@ -74,8 +75,7 @@ export default function Friends({ friends, deleteFriend, setEditMode }) {
             value={friend.id}
             type="submit"
           >
-            Delete&nbsp;
-            {friend.name}
+            Delete
           </button>
         </FriendCard>
       ))}
@@ -89,8 +89,8 @@ Friends.propTypes = {
       age: PT.isRequired,
       email: PT.string.isRequired,
       id: PT.number.isRequired,
-      name: PT.string.isRequired
+      name: PT.string.isRequired,
     })
   ).isRequired,
-  deleteFriend: PT.func.isRequired
+  deleteFriend: PT.func.isRequired,
 };

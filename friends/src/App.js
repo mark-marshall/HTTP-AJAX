@@ -5,11 +5,20 @@ import AddFriend from './Components/AddFriend';
 import styled from 'styled-components';
 import './App.css';
 
-const FriendHeader = styled.h1`
-  padding-top: 4%;
-  font-size: 45px;
-  color: #ed8733;
-  text-transform: uppercase;
+const HeaderWrap = styled.div`
+  margin-top: 40px;
+  width: 100%;
+  height: 50px;
+  background-color: #CF2C51;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-size: 17px;
+    color: white;
+    font-weight: normal;
+  }
 `;
 
 class App extends Component {
@@ -19,10 +28,10 @@ class App extends Component {
     addFriend: {
       name: '',
       age: '',
-      email: '',
+      email: ''
     },
     currentFriendID: '',
-    editMode: false,
+    editMode: false
   };
 
   componentDidMount() {
@@ -48,6 +57,7 @@ class App extends Component {
       }
     });
   };
+
   postFriend = () => {
     axios
       .post('http://localhost:5000/friends', this.state.addFriend)
@@ -62,21 +72,23 @@ class App extends Component {
       .catch(error => this.setError(error.message));
   };
 
-  
   updateFriend = () => {
     axios
-      .put(`http://localhost:5000/friends/${this.state.currentFriendID}`, this.state.addFriend)
+      .put(
+        `http://localhost:5000/friends/${this.state.currentFriendID}`,
+        this.state.addFriend
+      )
       .then(resp => console.log(resp))
       .catch(error => this.setError(error.message));
-      this.setState({ editMode: false });
-  }
+    this.setState({ editMode: false });
+  };
 
   setEditMode = event => {
     this.setState({
       editMode: true,
-      currentFriendID: event.target.value,
-    })
-  }
+      currentFriendID: event.target.value
+    });
+  };
 
   render() {
     if (this.state.error) {
@@ -84,7 +96,9 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <FriendHeader>Friends</FriendHeader>
+        <HeaderWrap>
+          <h1>Welcome to Friend Directory, inc. where no list of friends is too small... add and edit friends below as you please 🤗</h1>
+        </HeaderWrap>
         <Friends
           friends={this.state.friends}
           deleteFriend={this.deleteFriend}
@@ -97,6 +111,7 @@ class App extends Component {
           postFriend={this.postFriend}
           editMode={this.state.editMode}
           updateFriend={this.updateFriend}
+          currentFriendID={this.state.currentFriendID}
         />
       </div>
     );

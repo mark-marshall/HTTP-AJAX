@@ -34,7 +34,7 @@ const AddFriendForm = styled.form`
   }
 
   .addButton {
-      background-color: green;
+      background-color: #2F6C67;
   }
 `;
 
