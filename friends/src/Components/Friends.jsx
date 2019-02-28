@@ -26,6 +26,7 @@ const FriendCard = styled.div`
   }
 
   button {
+    margin-top: 10px;
     background-color: white;
     width: 40%;
     height: 15%;
@@ -39,13 +40,13 @@ const FriendCard = styled.div`
 
   .editButton {
     &:hover {
-      background-color: #2F6C67;
+      background-color: #2f6c67;
     }
   }
 
   .deleteButton {
     &:hover {
-      background-color: #EB4E47;
+      background-color: #eb4e47;
     }
   }
 `;
@@ -57,7 +58,6 @@ export default function Friends({ friends, deleteFriend, setEditMode }) {
         <FriendCard key={friend.id}>
           <h1>{friend.name}</h1>
           <p>
-            Age:
             {friend.age}
           </p>
           <p>{friend.email}</p>
@@ -90,7 +90,8 @@ Friends.propTypes = {
       email: PT.string.isRequired,
       id: PT.number.isRequired,
       name: PT.string.isRequired,
-    })
+    }),
   ).isRequired,
   deleteFriend: PT.func.isRequired,
+  setEditMode: PT.func.isRequired,
 };

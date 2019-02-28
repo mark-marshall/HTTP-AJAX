@@ -9,7 +9,7 @@ const HeaderWrap = styled.div`
   margin-top: 40px;
   width: 100%;
   height: 50px;
-  background-color: #CF2C51;
+  background-color: #cf2c51;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,6 +21,8 @@ const HeaderWrap = styled.div`
   }
 `;
 
+const friendsURL = 'http://localhost:5000/friends';
+
 class App extends Component {
   state = {
     friends: [],
@@ -28,15 +30,15 @@ class App extends Component {
     addFriend: {
       name: '',
       age: '',
-      email: ''
+      email: '',
     },
     currentFriendID: '',
-    editMode: false
+    editMode: false,
   };
 
   componentDidMount() {
     axios
-      .get('http://localhost:5000/friends')
+      .get(friendsURL)
       .then(friends => this.setFriendsList(friends.data))
       .catch(error => this.setError(error.message));
   }
@@ -49,45 +51,95 @@ class App extends Component {
     this.setState({ error });
   };
 
+  addFriendReset = () => {
+    this.setState({
+      addFriend: {
+        name: '',
+        age: '',
+        email: '',
+      },
+    });
+  };
+
   addFriendHandler = event => {
     this.setState({
       addFriend: {
         ...this.state.addFriend,
-        [event.target.name]: event.target.value
-      }
+        [event.target.name]: event.target.value,
+      },
     });
   };
 
+  friendValidation = () => {
+    if (this.state.addFriend.name === '') {
+      return alert("Please don't leave your friend nameless 🙈");
+    } else if (this.state.addFriend.age === '') {
+      return alert("Please don't leave your friend ageless 👶🏻");
+    } else if (this.state.addFriend.email === '') {
+      return alert("Please don't leave your friend email-less 💻");
+    } else if (!this.state.addFriend.email.includes('@')) {
+      return alert('FAKE EMAIL ALERT 😱');
+    } else return true;
+  };
+
   postFriend = () => {
-    axios
-      .post('http://localhost:5000/friends', this.state.addFriend)
-      .then(resp => console.log(resp))
-      .catch(error => this.setError(error.message));
+    if (this.friendValidation()) {
+      axios
+        .post(friendsURL, this.state.addFriend)
+        .then(resp => this.setFriendsList(resp.data))
+        .catch(error => this.setError(error.message))
+        .finally(this.addFriendReset);
+    }
   };
 
   deleteFriend = event => {
     axios
-      .delete(`http://localhost:5000/friends/${event.target.value}`)
+      .delete(`${friendsURL}/${event.target.value}`)
       .then(friends => this.setFriendsList(friends.data))
       .catch(error => this.setError(error.message));
   };
 
   updateFriend = () => {
-    axios
-      .put(
-        `http://localhost:5000/friends/${this.state.currentFriendID}`,
-        this.state.addFriend
-      )
-      .then(resp => console.log(resp))
-      .catch(error => this.setError(error.message));
-    this.setState({ editMode: false });
+    if (this.friendValidation()) {
+      axios
+        .put(
+          `${friendsURL}/${this.state.currentFriendID}`,
+          this.state.addFriend,
+        )
+        .then(resp => this.setFriendsList(resp.data))
+        .catch(error => this.setError(error.message))
+        .finally(this.addFriendReset);
+      this.setState({ editMode: false });
+    }
   };
 
   setEditMode = event => {
     this.setState({
       editMode: true,
-      currentFriendID: event.target.value
+      currentFriendID: event.target.value,
     });
+    this.upateValuesForEditMode(event);
+  };
+
+  upateValuesForEditMode = event => {
+    const id = parseInt(event.target.value);
+    const selectedFriend = this.state.friends.filter(
+      friend => friend.id === id,
+    );
+    this.setState({
+      addFriend: {
+        name: selectedFriend[0].name,
+        age: selectedFriend[0].age,
+        email: selectedFriend[0].email,
+      },
+    });
+  };
+
+  cancelEdit = () => {
+    this.setState({
+      editMode: false,
+    });
+    this.addFriendReset();
   };
 
   render() {
@@ -97,7 +149,10 @@ class App extends Component {
     return (
       <div className="App">
         <HeaderWrap>
-          <h1>Welcome to Friend Directory, inc. where no list of friends is too small... add and edit friends below as you please 🤗</h1>
+          <h1>
+            Welcome to Friend Directory, inc. where no friends list is too
+            small... add and edit friends as you please 🤗
+          </h1>
         </HeaderWrap>
         <Friends
           friends={this.state.friends}
@@ -112,6 +167,8 @@ class App extends Component {
           editMode={this.state.editMode}
           updateFriend={this.updateFriend}
           currentFriendID={this.state.currentFriendID}
+          friends={this.state.friends}
+          cancelEdit={this.cancelEdit}
         />
       </div>
     );

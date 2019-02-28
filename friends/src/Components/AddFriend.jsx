@@ -1,24 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import { lighten } from 'polished';
 import PT from 'prop-types';
 
-const AddFriendForm = styled.form`
+const ChangedFriendsWrapper = styled.div`
   justify-content: center;
-  padding-bottom: 8%;
+  padding: 2% 0 8% 0;
 
   input {
     height: 30px;
     padding: 0.2%;
     margin: 0.2%;
-    width: 210px;
+    width: 170px;
+    border-radius: 2px;
+    border: 1px solid #f5f5f5;
   }
 
   button {
     height: 39px;
     margin: 0.2%;
     padding: 0 2%;
-    border: none;
-    background-color: #ed8733;
+    border-radius: 3px;
+    border: 1px solid white;
+    background-color: #2f6c67;
     color: white;
     font-size: 14px;
     cursor: pointer;
@@ -29,12 +33,17 @@ const AddFriendForm = styled.form`
     }
 
     &:hover {
-      background-color: #3d075e;
+      background-color: ${lighten('0.05', '#2f6c67')};
     }
   }
 
-  .addButton {
-      background-color: #2F6C67;
+  .cancelButton {
+    background-color: #eb4e47;
+    padding: 0 1.5%;
+
+    &:hover {
+      background-color: ${lighten('0.05', '#EB4E47')};
+    }
   }
 `;
 
@@ -44,10 +53,11 @@ export default function AddFriend({
   addFriendHandler,
   editMode,
   updateFriend,
+  cancelEdit,
 }) {
   if (!editMode) {
     return (
-      <AddFriendForm onSubmit={postFriend}>
+      <ChangedFriendsWrapper>
         <input
           placeholder="Name"
           name="name"
@@ -65,16 +75,18 @@ export default function AddFriend({
         <input
           placeholder="Email"
           name="email"
-          type="text"
+          type="email"
           onChange={event => addFriendHandler(event)}
           value={addFriend.email}
         />
-        <button type="submit" className="addButton">Add Friend</button>
-      </AddFriendForm>
+        <button className="addButton" onClick={postFriend} type="submit">
+          Add Friend
+        </button>
+      </ChangedFriendsWrapper>
     );
   }
   return (
-    <AddFriendForm onSubmit={updateFriend}>
+    <ChangedFriendsWrapper>
       <input
         placeholder="Name"
         name="name"
@@ -96,8 +108,13 @@ export default function AddFriend({
         onChange={event => addFriendHandler(event)}
         value={addFriend.email}
       />
-      <button type="submit">Edit Friend</button>
-    </AddFriendForm>
+      <button type="submit" onClick={updateFriend}>
+        Edit Friend
+      </button>
+      <button type="submit" onClick={cancelEdit} className="cancelButton">
+        X
+      </button>
+    </ChangedFriendsWrapper>
   );
 }
 
@@ -106,7 +123,10 @@ AddFriend.propTypes = {
   addFriend: PT.shape({
     name: PT.string.isRequired,
     age: PT.isRequired,
-    email: PT.string.isRequired
+    email: PT.string.isRequired,
   }).isRequired,
-  addFriendHandler: PT.func.isRequired
+  addFriendHandler: PT.func.isRequired,
+  editMode: PT.bool.isRequired,
+  updateFriend: PT.func.isRequired,
+  cancelEdit: PT.func.isRequired,
 };
