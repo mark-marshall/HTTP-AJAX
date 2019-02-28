@@ -88,7 +88,21 @@ class App extends Component {
       editMode: true,
       currentFriendID: event.target.value
     });
+    this.upateValuesForEditMode(event);
   };
+
+  upateValuesForEditMode = event => {
+    const id = parseInt(event.target.value)
+    const selectedFriend = this.state.friends.filter(friend => friend.id === id);
+    console.log(selectedFriend);
+    this.setState({
+      addFriend: {
+        name: selectedFriend[0].name,
+        age: selectedFriend[0].age,
+        email: selectedFriend[0].email,
+      }
+    })
+  }
 
   render() {
     if (this.state.error) {
@@ -112,6 +126,7 @@ class App extends Component {
           editMode={this.state.editMode}
           updateFriend={this.updateFriend}
           currentFriendID={this.state.currentFriendID}
+          friends={this.state.friends}
         />
       </div>
     );

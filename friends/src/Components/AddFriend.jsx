@@ -34,7 +34,7 @@ const AddFriendForm = styled.form`
   }
 
   .addButton {
-      background-color: #2F6C67;
+    background-color: #2f6c67;
   }
 `;
 
@@ -44,6 +44,7 @@ export default function AddFriend({
   addFriendHandler,
   editMode,
   updateFriend,
+
 }) {
   if (!editMode) {
     return (
@@ -69,7 +70,9 @@ export default function AddFriend({
           onChange={event => addFriendHandler(event)}
           value={addFriend.email}
         />
-        <button type="submit" className="addButton">Add Friend</button>
+        <button type="submit" className="addButton">
+          Add Friend
+        </button>
       </AddFriendForm>
     );
   }
