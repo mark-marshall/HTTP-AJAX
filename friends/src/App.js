@@ -9,7 +9,7 @@ const HeaderWrap = styled.div`
   margin-top: 40px;
   width: 100%;
   height: 50px;
-  background-color: #CF2C51;
+  background-color: #cf2c51;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,6 +20,8 @@ const HeaderWrap = styled.div`
     font-weight: normal;
   }
 `;
+
+const friendsURL = 'http://localhost:5000/friends';
 
 class App extends Component {
   state = {
@@ -36,7 +38,7 @@ class App extends Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:5000/friends')
+      .get(friendsURL)
       .then(friends => this.setFriendsList(friends.data))
       .catch(error => this.setError(error.message));
   }
@@ -54,10 +56,10 @@ class App extends Component {
       addFriend: {
         name: '',
         age: '',
-        email: '',
+        email: ''
       }
-    })
-  }
+    });
+  };
 
   addFriendHandler = event => {
     this.setState({
@@ -70,24 +72,21 @@ class App extends Component {
 
   postFriend = () => {
     axios
-      .post('http://localhost:5000/friends', this.state.addFriend)
+      .post(friendsURL, this.state.addFriend)
       .then(resp => console.log(resp))
       .catch(error => this.setError(error.message));
   };
 
   deleteFriend = event => {
     axios
-      .delete(`http://localhost:5000/friends/${event.target.value}`)
+      .delete(`${friendsURL}/${event.target.value}`)
       .then(friends => this.setFriendsList(friends.data))
       .catch(error => this.setError(error.message));
   };
 
   updateFriend = () => {
     axios
-      .put(
-        `http://localhost:5000/friends/${this.state.currentFriendID}`,
-        this.state.addFriend
-      )
+      .put(`${friendsURL}/${this.state.currentFriendID}`, this.state.addFriend)
       .then(resp => console.log(resp))
       .catch(error => this.setError(error.message));
     this.setState({ editMode: false });
@@ -102,24 +101,25 @@ class App extends Component {
   };
 
   upateValuesForEditMode = event => {
-    const id = parseInt(event.target.value)
-    const selectedFriend = this.state.friends.filter(friend => friend.id === id);
-    console.log(selectedFriend);
+    const id = parseInt(event.target.value);
+    const selectedFriend = this.state.friends.filter(
+      friend => friend.id === id
+    );
     this.setState({
       addFriend: {
         name: selectedFriend[0].name,
         age: selectedFriend[0].age,
-        email: selectedFriend[0].email,
+        email: selectedFriend[0].email
       }
-    })
-  }
+    });
+  };
 
   cancelEdit = () => {
     this.setState({
-      editMode: false,
-    })
+      editMode: false
+    });
     this.addFriendReset();
-  }
+  };
 
   render() {
     if (this.state.error) {
@@ -128,7 +128,10 @@ class App extends Component {
     return (
       <div className="App">
         <HeaderWrap>
-          <h1>Welcome to Friend Directory, inc. where no list of friends is too small... add and edit friends below as you please 🤗</h1>
+          <h1>
+            Welcome to Friend Directory, inc. where no friends list is too
+            small... add and edit friends as you please 🤗
+          </h1>
         </HeaderWrap>
         <Friends
           friends={this.state.friends}
