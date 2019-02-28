@@ -53,7 +53,7 @@ export default function AddFriend({
   addFriendHandler,
   editMode,
   updateFriend,
-  cancelEdit
+  cancelEdit,
 }) {
   if (!editMode) {
     return (
@@ -75,11 +75,11 @@ export default function AddFriend({
         <input
           placeholder="Email"
           name="email"
-          type="text"
+          type="email"
           onChange={event => addFriendHandler(event)}
           value={addFriend.email}
         />
-        <button className="addButton" onClick={postFriend}>
+        <button className="addButton" onClick={postFriend} type="submit">
           Add Friend
         </button>
       </ChangedFriendsWrapper>
@@ -108,7 +108,9 @@ export default function AddFriend({
         onChange={event => addFriendHandler(event)}
         value={addFriend.email}
       />
-      <button onClick={updateFriend}>Edit Friend</button>
+      <button type="submit" onClick={updateFriend}>
+        Edit Friend
+      </button>
       <button type="submit" onClick={cancelEdit} className="cancelButton">
         X
       </button>

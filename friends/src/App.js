@@ -30,10 +30,10 @@ class App extends Component {
     addFriend: {
       name: '',
       age: '',
-      email: ''
+      email: '',
     },
     currentFriendID: '',
-    editMode: false
+    editMode: false,
   };
 
   componentDidMount() {
@@ -56,8 +56,8 @@ class App extends Component {
       addFriend: {
         name: '',
         age: '',
-        email: ''
-      }
+        email: '',
+      },
     });
   };
 
@@ -65,17 +65,31 @@ class App extends Component {
     this.setState({
       addFriend: {
         ...this.state.addFriend,
-        [event.target.name]: event.target.value
-      }
+        [event.target.name]: event.target.value,
+      },
     });
   };
 
+  friendValidation = () => {
+    if (this.state.addFriend.name === '') {
+      return alert("Please don't leave your friend nameless 🙈");
+    } else if (this.state.addFriend.age === '') {
+      return alert("Please don't leave your friend ageless 👶🏻");
+    } else if (this.state.addFriend.email === '') {
+      return alert("Please don't leave your friend email-less 💻");
+    } else if (!this.state.addFriend.email.includes('@')) {
+      return alert('FAKE EMAIL ALERT 😱');
+    } else return true;
+  };
+
   postFriend = () => {
-    axios
-      .post(friendsURL, this.state.addFriend)
-      .then(resp => this.setFriendsList(resp.data))
-      .catch(error => this.setError(error.message))
-      .finally(this.addFriendReset);
+    if (this.friendValidation()) {
+      axios
+        .post(friendsURL, this.state.addFriend)
+        .then(resp => this.setFriendsList(resp.data))
+        .catch(error => this.setError(error.message))
+        .finally(this.addFriendReset);
+    }
   };
 
   deleteFriend = event => {
@@ -86,18 +100,23 @@ class App extends Component {
   };
 
   updateFriend = () => {
-    axios
-      .put(`${friendsURL}/${this.state.currentFriendID}`, this.state.addFriend)
-      .then(resp => this.setFriendsList(resp.data))
-      .catch(error => this.setError(error.message))
-      .finally(this.addFriendReset);
-    this.setState({ editMode: false });
+    if (this.friendValidation()) {
+      axios
+        .put(
+          `${friendsURL}/${this.state.currentFriendID}`,
+          this.state.addFriend,
+        )
+        .then(resp => this.setFriendsList(resp.data))
+        .catch(error => this.setError(error.message))
+        .finally(this.addFriendReset);
+      this.setState({ editMode: false });
+    }
   };
 
   setEditMode = event => {
     this.setState({
       editMode: true,
-      currentFriendID: event.target.value
+      currentFriendID: event.target.value,
     });
     this.upateValuesForEditMode(event);
   };
@@ -105,20 +124,20 @@ class App extends Component {
   upateValuesForEditMode = event => {
     const id = parseInt(event.target.value);
     const selectedFriend = this.state.friends.filter(
-      friend => friend.id === id
+      friend => friend.id === id,
     );
     this.setState({
       addFriend: {
         name: selectedFriend[0].name,
         age: selectedFriend[0].age,
-        email: selectedFriend[0].email
-      }
+        email: selectedFriend[0].email,
+      },
     });
   };
 
   cancelEdit = () => {
     this.setState({
-      editMode: false
+      editMode: false,
     });
     this.addFriendReset();
   };
