@@ -104,6 +104,12 @@ class App extends Component {
     })
   }
 
+  cancelEdit = () => {
+    this.setState({
+      editMode: false,
+    })
+  }
+
   render() {
     if (this.state.error) {
       return <h1>Well, that didn't work, here's why: {this.state.error}</h1>;
@@ -127,6 +133,7 @@ class App extends Component {
           updateFriend={this.updateFriend}
           currentFriendID={this.state.currentFriendID}
           friends={this.state.friends}
+          cancelEdit={this.cancelEdit}
         />
       </div>
     );

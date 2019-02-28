@@ -10,7 +10,7 @@ const AddFriendForm = styled.form`
     height: 30px;
     padding: 0.2%;
     margin: 0.2%;
-    width: 210px;
+    width: 170px;
   }
 
   button {
@@ -36,6 +36,10 @@ const AddFriendForm = styled.form`
   .addButton {
     background-color: #2f6c67;
   }
+
+  .cancelButton {
+    background-color: #EB4E47;
+  }
 `;
 
 export default function AddFriend({
@@ -44,7 +48,7 @@ export default function AddFriend({
   addFriendHandler,
   editMode,
   updateFriend,
-
+  cancelEdit,
 }) {
   if (!editMode) {
     return (
@@ -100,6 +104,7 @@ export default function AddFriend({
         value={addFriend.email}
       />
       <button type="submit">Edit Friend</button>
+      <button type="submit" onClick={cancelEdit} className="cancelButton">X</button>
     </AddFriendForm>
   );
 }
