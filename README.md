@@ -1,40 +1,52 @@
-# HTTP/AJAX;
+# Friend Directory
 
-Topics:
+## Preview
 
-* `axios` package
-* AJAX
-* Promises
+## Motivation
+Friend Directory is a desktop web application which was built as part of a 2 day project to practise making CRUD AJAX requests.
 
-## Instructions
+## About The App
+This app allows users to create and maintain a directory of their friends/contacts with the functionality to add, edit, and delete entries.
 
-1.  Run `yarn install or npm install` inside the root directory of this project1Run `yarn start or npm start` to start the server.
-1.  The provided server returns a list of friends when a `GET` request is made to [`http://localhost:5000/friends`](http://localhost:5000/friends).
-1.  In a separate terminal window, run `yarn create react-app friends` to create your starter React application.
-1.  CD into `friends` and run `yarn add axios react-router-dom` or `npm install --save axios react-router-dom` to include those dependencies in your project. _You'll need react router for the stretch problems_
-1.  CD into `friends` and run `yarn start or npm start` to fire up your React Dev Server.
-1.  Inside your React application, create a component to display the list of friends coming from the server.
-1.  Add a form to gather information about a new friend.
-1.  Add a button to save the new friend by making a `POST` request to the same endpoint listed above.
-1.  Each `friend` should have the properties listed below.
-1.  Implement `Update` and `Delete` functionality.
-    * for `update` pass the friend id as a URL parameter, and the information you want to update about the friend inside the body. You can build a new form in the UI for this, or, if you set it up correctly, reuse the form you made for the `POST` request.
-    * for `delete`, add a `delete` button, or an `x` icon to each friend that will delete the friend when you click it. In the request url, pass the friend id as a URL parameter.
+## Technologoies
+React | Axios | Styled Components
 
-For reference, 
-```js
-{
-  name: should be a string,
-  age: should be a number,
-  email: should be a string,
-}
-```
+## Installer
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
----
+### Available Scripts
 
-## Stretch Problems
+In the project directory, you can run:
 
-1.  Separate the list of friends and the new friend form into different components, and use the appropriate React Router to build routes for the proper aspects of your components to be revealed separately.
-1.  Style the friends list, the input field, and make everything look nice.
-1.  Expand the number of properties that you put on each friend object.
-1.  Feel free to remove the dummy data on the server or modify it in any way.
+#### `npm start`
+
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+
+#### `npm test`
+
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+#### `npm run build`
+
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+#### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
