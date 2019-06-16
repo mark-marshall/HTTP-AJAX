@@ -17,6 +17,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Available Scripts
 
+In the **Roote** directory, you can run:
+
+#### `yarn start`
+
+Launches the node server with nodemon on Port 5000.
+
 In the **Friends** directory, you can run:
 
 #### `npm start`
