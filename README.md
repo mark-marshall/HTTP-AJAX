@@ -13,15 +13,16 @@ This app allows users to create and maintain a directory of their friends/contac
 React | Axios | Styled Components
 
 ## Installer
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ### Available Scripts
 
-In the **Roote** directory, you can run:
+In the **Root** directory, you can run:
 
 #### `yarn start`
 
 Launches the node server with nodemon on Port 5000.
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the **Friends** directory, you can run:
 
