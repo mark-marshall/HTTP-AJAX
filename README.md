@@ -1,6 +1,7 @@
 # Friend Directory
 
 ## Preview
+![](friendsListPreview.gif)
 
 ## Motivation
 Friend Directory is a desktop web application which was built as part of a 2 day project to practise making CRUD AJAX requests.
